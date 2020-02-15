@@ -1,38 +1,23 @@
 package price.calculator;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Unit test for simple App.
+ * Unit test for Car Price Calculator Application.
  */
-public class PriceCalculatorTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public PriceCalculatorTest( String testName )
-    {
-        super( testName );
-    }
+public class PriceCalculatorTest {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( PriceCalculatorTest.class );
-    }
+	private int errorCode;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@Test
+	public void testNumberOfArguments() {
+		PriceCalculator.main(new String[] { "cart.json" });
+		assertAbort();
+	}
+
+	private void assertAbort() {
+		System.out.println(errorCode);
+		Assert.assertEquals(0, errorCode);
+	}
 }
