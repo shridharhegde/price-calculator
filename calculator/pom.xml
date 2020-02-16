@@ -27,6 +27,11 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.10.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -46,7 +51,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>sample.test.App</mainClass>
+									<mainClass>price.calculator.PriceCalculator</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
