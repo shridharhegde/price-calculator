@@ -7,6 +7,6 @@ import price.calculator.model.Cart;
 
 public interface IPriceCalculatorService {
 
-	public void calculateCartPrice(List<Cart> carts, List<BasePrice> basePrices);
+	public Double calculateCartPrice(List<Cart> carts, List<BasePrice> basePrices);
 
 }

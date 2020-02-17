@@ -14,4 +14,10 @@ public class PriceCalculatorTest {
 		PriceCalculator.main(new String[] { "cart.json" });
 	}
 
+	@Test(expected = PriceCalculatorExcetion.class)
+	public void testEmptyCartFile() {
+		PriceCalculator
+		.main(new String[] { "src/main/resources/emptyCartFile.json", "src/main/resources/basePrice.json" });
+	}
+
 }

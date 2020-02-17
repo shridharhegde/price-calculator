@@ -11,18 +11,25 @@ public class PriceCalculatorService implements IPriceCalculatorService {
 
 	private Calculator calculator = new Calculator();
 
-	public void calculateCartPrice(List<Cart> carts, List<BasePrice> basePrices) {
+	// This function displays price for each item in the cart and returns total cart
+	// price
+	public Double calculateCartPrice(List<Cart> carts, List<BasePrice> basePrices) {
 		Double totalPrice = 0.0;
-		totalPrice = carts.stream().map((cart) -> {
-			BasePrice basePrice = findBasePrice(cart, basePrices);
-			Double price = calculator.calculateItemPrice(Double.valueOf(basePrice.getBasePrice()),
-					Double.valueOf(cart.getArtistMarkUp()), cart.getQuantity());
-			System.out.println("Product Type - "+cart.getProductType()+"\n"+"Price - "+price.intValue());
-			return price;
-		}).reduce(Double::sum).get();
-		System.out.println("\nTotal Cart Price - "+totalPrice.intValue());
+		try {
+			totalPrice = carts.stream().map((cart) -> {
+				BasePrice basePrice = findBasePrice(cart, basePrices);
+				Double price = calculator.calculateItemPrice(Double.valueOf(basePrice.getBasePrice()),
+						Double.valueOf(cart.getArtistMarkUp()), cart.getQuantity());
+				System.out.println("Product Type - " + cart.getProductType() + "\n" + "Price - " + price.intValue());
+				return price;
+			}).reduce(Double::sum).get();
+			return totalPrice;
+		} catch (Exception e) {
+			return totalPrice;
+		}
 	}
 
+	// Returns base price of a particular product type with matched options
 	private BasePrice findBasePrice(Cart cart, List<BasePrice> basePrices) {
 		List<BasePrice> basePricesForProductType = basePrices.stream()
 				.filter(bPrice -> bPrice.getProductType().equalsIgnoreCase(cart.getProductType()))

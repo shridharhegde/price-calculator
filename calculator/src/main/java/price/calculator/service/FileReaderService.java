@@ -10,45 +10,27 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import price.calculator.exception.PriceCalculatorExcetion;
-import price.calculator.model.BasePrice;
-import price.calculator.model.Cart;
 
 /**
  * Service class to read file and return java objects
+ * 
+ * @param <T>
  *
  */
-public class FileReaderService implements IFileReaderService {
+public class FileReaderService<T> implements IFileReaderService {
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
-	public List<Cart> getCartData(String cartFilePath) {
-		if (cartFilePath != null && !cartFilePath.isEmpty()) {
-			File file = new File(cartFilePath);
+	// Read File from the path specified and convert to specified model
+	@SuppressWarnings("unchecked")
+	public List<T> readFileData(String filePath) {
+		if (filePath != null && !filePath.isEmpty()) {
+			File file = new File(filePath);
 			try {
-				List<Cart> carts = objectMapper.readValue(file, new TypeReference<List<Cart>>() {
+				List<T> list = objectMapper.readValue(file, new TypeReference<List<T>>() {
 				});
-				if (carts != null && carts.size() > 0) {
-					return carts;
-				}
-			} catch (JsonParseException e) {
-				throw new PriceCalculatorExcetion("Unable to parse json", e);
-			} catch (JsonMappingException e) {
-				throw new PriceCalculatorExcetion("Unable to map json to Cart", e);
-			} catch (IOException e) {
-				throw new PriceCalculatorExcetion("Something went wrong, please try with correct json file", e);
-			}
-		}
-		return null;
-	}
-
-	public List<BasePrice> getBasePriceData(String basePriceFilePath) {
-		if (basePriceFilePath != null && !basePriceFilePath.isEmpty()) {
-			File file = new File(basePriceFilePath);
-			try {
-				List<BasePrice> basePrices = objectMapper.readValue(file, new TypeReference<List<BasePrice>>() {
-				});
-				if (basePrices != null && basePrices.size() > 0) {
-					return basePrices;
+				if (list != null && list.size() > 0) {
+					return list;
 				}
 			} catch (JsonParseException e) {
 				throw new PriceCalculatorExcetion("Unable to parse json", e);
