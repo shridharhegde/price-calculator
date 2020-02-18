@@ -25,6 +25,8 @@ public class BasePrice implements Serializable {
 
 	@JsonProperty(value = "base-price")
 	private Long basePrice;
+	
+	private Map<String, Boolean> optionsMatched;
 
 	public String getProductType() {
 		return productType;
@@ -48,6 +50,14 @@ public class BasePrice implements Serializable {
 
 	public void setBasePrice(Long basePrice) {
 		this.basePrice = basePrice;
+	}
+
+	public Map<String, Boolean> getOptionsMatched() {
+		return optionsMatched;
+	}
+
+	public void setOptionsMatched(Map<String, Boolean> optionsMatched) {
+		this.optionsMatched = optionsMatched;
 	}
 
 }

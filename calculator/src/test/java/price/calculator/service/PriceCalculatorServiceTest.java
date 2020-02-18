@@ -37,8 +37,16 @@ public class PriceCalculatorServiceTest {
 	}
 
 	@Test
-	public void testTotalPrice() {
+	public void testTotalPriceWithMultipleProductType() {
 		Assert.assertEquals(new Double(9363), priceCalculatorService.calculateCartPrice(carts, basePrices));
+	}
+
+	@Test
+	public void testTotalPriceWithSingleProductType() throws JsonParseException, JsonMappingException, IOException {
+		carts = objectMapper.readValue(new File("src/main/resources/cartWithOneProductType.json"),
+				new TypeReference<List<Cart>>() {
+		});
+		Assert.assertEquals(new Double(11356), priceCalculatorService.calculateCartPrice(carts, basePrices));
 	}
 
 	@Test
@@ -47,6 +55,14 @@ public class PriceCalculatorServiceTest {
 				new TypeReference<List<BasePrice>>() {
 		});
 		Assert.assertEquals(new Double(0), priceCalculatorService.calculateCartPrice(carts, basePrices));
+	}
+	
+	@Test
+	public void testTotalPriceWithOneMatchedDataInBasePrice() throws JsonParseException, JsonMappingException, IOException {
+		carts = objectMapper.readValue(new File("src/main/resources/cartFileWithOnceMatchedEntryInBasePrice.json"),
+				new TypeReference<List<Cart>>() {
+		});
+		Assert.assertEquals(new Double(6500), priceCalculatorService.calculateCartPrice(carts, basePrices));
 	}
 
 	@After
